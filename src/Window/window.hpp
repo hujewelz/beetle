@@ -9,7 +9,9 @@
 
 class Window {
  public:
-  Window(int width, int height, const char *title);
+  // return the window.
+  static Window *Get();
+  static void Destory();
   ~Window();
 
   void RunScene(Scene &scene);
@@ -17,9 +19,15 @@ class Window {
   int GetWidth() const { return width_; }
   int GetHeight() const { return height_; }
 
+  void SetTitle(const char *title) { title_ = title; }
+  void SetWidth(int width) { width_ = width; }
+  void SetHeight(int height) { height_ = height; }
+
   void AddEventHandler(Key key, EventState state, EventHandlerFun handler);
 
  private:
+  Window(int width, int height, const char *title);
+
   int width_;
   int height_;
   const char *title_;
@@ -28,7 +36,7 @@ class Window {
   void Init();
   void Render();
   void ProcessInput(GLFWwindow *window);
-  void FramebufferSizeChanged(GLFWwindow *window, int width, int height);
+  void static FramebufferSizeChanged(GLFWwindow *window, int width, int height);
   void Update();
 
   std::vector<EventHandler> eventHandlers_;

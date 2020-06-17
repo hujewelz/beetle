@@ -5,10 +5,21 @@
 #include "resource_manager.hpp"
 #include "texture.hpp"
 
+static Window *window = nullptr;
+
+Window *Window::Get() {
+  if (!window) {
+    window = new Window(800, 600, "New Game");
+  }
+  return window;
+}
+
+void Window::Destory() { delete window; }
+
 Window::Window(int width, int height, const char *title)
     : width_(width), height_(height), title_(title) {}
 
-Window::~Window() {}
+Window::~Window() { std::cout << "Window deallocated." << std::endl; }
 
 void Window::RunScene(Scene &scene) {
   scene_ = scene;
@@ -37,9 +48,7 @@ void Window::Init() {
   }
   glfwMakeContextCurrent(window);
 
-  // typedef void *(*Callback)(void *, GLFWwindow *, int, int);
-  // Callback callback = (Callback) & (Window::FramebufferSizeChanged);
-  // glfwSetFramebufferSizeCallback(window, callback);
+  glfwSetFramebufferSizeCallback(window, Window::FramebufferSizeChanged);
   // glfwSetKeyCallback
   glewExperimental = GL_TRUE;
   if (glewInit() != GLEW_OK) {
@@ -64,9 +73,11 @@ void Window::Init() {
   // glfw: terminate, clearing all previously allocated GLFW resources.
   glfwTerminate();
 }
+
 void Window::Update() {}
 
 void Window::ProcessInput(GLFWwindow *window) {
+  GLint viewport[4];
   if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
     glfwSetWindowShouldClose(window, true);
     return;
@@ -82,8 +93,8 @@ void Window::ProcessInput(GLFWwindow *window) {
 }
 
 void Window::FramebufferSizeChanged(GLFWwindow *window, int width, int height) {
-  width_ = width;
-  height_ = height;
+  // width_ = width;
+  // height_ = height;
   glViewport(0, 0, width, height);
 }
 

@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "resource_manager.hpp"
+#include "window.hpp"
 
 SpriteRenderer::SpriteRenderer(Shader &shader) {
   shader_ = shader;
@@ -22,13 +23,19 @@ void SpriteRenderer::Render(Sprite &sprite) {
   model = glm::translate(
       model, glm::vec3(sprite.GetPosition().x, sprite.GetPosition().y, 0.0f));
 
-  model = glm::translate(model, glm::vec3(0.5f * sprite.GetSize().x,
-                                          0.5f * sprite.GetSize().y, 0.0f));
+  GLint viewport[4];
+  glGetIntegerv(GL_VIEWPORT, viewport);
+
+  auto w = Window::Get();
+  int sprite_width = sprite.GetSize().x * w->GetWidth() / viewport[2];
+  int sprite_height = sprite.GetSize().y * w->GetHeight() / viewport[3];
+
+  model = glm::translate(
+      model, glm::vec3(0.5f * sprite_width, 0.5f * sprite_height, 0.0f));
   model = glm::rotate(model, sprite.GetRotate(), glm::vec3(0.0f, 0.0f, -1.0f));
-  model = glm::translate(model, glm::vec3(-0.5f * sprite.GetSize().x,
-                                          -0.5f * sprite.GetSize().y, 0.0f));
-  model = glm::scale(model,
-                     glm::vec3(sprite.GetSize().x, sprite.GetSize().y, 1.0f));
+  model = glm::translate(
+      model, glm::vec3(-0.5f * sprite_width, -0.5f * sprite_height, 0.0f));
+  model = glm::scale(model, glm::vec3(sprite_width, sprite_height, 1.0f));
   shader_.SetVector3f("spriteColor", sprite.GetColor().x, sprite.GetColor().y,
                       sprite.GetColor().z);
   shader_.SetMatrix4("model", model);
@@ -43,9 +50,13 @@ void SpriteRenderer::Render(Sprite &sprite) {
 void SpriteRenderer::Init() {
   float vertices[] = {
       // pos      // tex
-      0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+      0.0f, 1.0f, 0.0f, 1.0f,
+      1.0f, 0.0f, 1.0f, 0.0f, 
+      0.0f, 0.0f, 0.0f, 0.0f,
 
-      0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f};
+      0.0f, 1.0f, 0.0f, 1.0f, 
+      1.0f, 1.0f, 1.0f, 1.0f, 
+      1.0f, 0.0f, 1.0f, 0.0f};
 
   glGenVertexArrays(1, &VAO_);
   glGenBuffers(1, &VBO_);

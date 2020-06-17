@@ -14,13 +14,13 @@ int main(int argc, char *arge[]) {
   scene.AddChild(sprite);
   scene.AddChild(sprite2);
 
-  Window window(500, 600, "Breakout");
+  auto window = Window::Get();
 
-  window.AddEventHandler(KEY_A, EVENT_STATE_PRESS, [sprite](Event event) {
+  window->AddEventHandler(KEY_A, EVENT_STATE_PRESS, [sprite](Event event) {
     bet::vec2 p = sprite->GetPosition();
     sprite->SetPosition(p + bet::vec2(1.0f, 1.0f));
   });
-  window.RunScene(scene);
+  window->RunScene(scene);
 
   return 1;
 }
