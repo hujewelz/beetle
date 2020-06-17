@@ -7,6 +7,8 @@
 #include "resource_manager.hpp"
 #include "window.hpp"
 
+using namespace bet;
+
 SpriteRenderer::SpriteRenderer(Shader &shader) {
   shader_ = shader;
   Init();
@@ -26,7 +28,7 @@ void SpriteRenderer::Render(Sprite &sprite) {
   GLint viewport[4];
   glGetIntegerv(GL_VIEWPORT, viewport);
 
-  auto w = Window::Get();
+  auto w = bet::Window::Get();
   int sprite_width = sprite.GetSize().x * w->GetWidth() / viewport[2];
   int sprite_height = sprite.GetSize().y * w->GetHeight() / viewport[3];
 
@@ -41,7 +43,7 @@ void SpriteRenderer::Render(Sprite &sprite) {
   shader_.SetMatrix4("model", model);
 
   glActiveTexture(GL_TEXTURE0);
-  sprite.GetTexture().Bind();
+  ResourceManager::GetTexture2D(sprite.GetFileName()).Bind();
   glBindVertexArray(VAO_);
   glDrawArrays(GL_TRIANGLES, 0, 6);
   glBindVertexArray(0);
@@ -50,13 +52,9 @@ void SpriteRenderer::Render(Sprite &sprite) {
 void SpriteRenderer::Init() {
   float vertices[] = {
       // pos      // tex
-      0.0f, 1.0f, 0.0f, 1.0f,
-      1.0f, 0.0f, 1.0f, 0.0f, 
-      0.0f, 0.0f, 0.0f, 0.0f,
+      0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
 
-      0.0f, 1.0f, 0.0f, 1.0f, 
-      1.0f, 1.0f, 1.0f, 1.0f, 
-      1.0f, 0.0f, 1.0f, 0.0f};
+      0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f};
 
   glGenVertexArrays(1, &VAO_);
   glGenBuffers(1, &VBO_);

@@ -69,8 +69,10 @@ endif(APPLE)
 
 target_include_directories(beetle 
     PUBLIC
-    ${beetleIncludeDir}
+    ${beetle_public_include_dirs}
     /usr/local/include
+    PRIVATE
+    ${beetle_private_include_dirs}
 )
 message(STATUS "LIBS: ${_tmp_beetle_libs}")
 
@@ -89,7 +91,7 @@ install(TARGETS
     DESTINATION ${INSTALL_INCLUDEDIR}/${PROJECT_NAME}
     )
 
-foreach(header ${_tmp_beetle_headers})
+foreach(header ${_tmp_beetle_public_headers})
     message(STATUS "Header: ${CMAKE_SOURCE_DIR}/${header}")
     install(FILES 
         ${CMAKE_SOURCE_DIR}/${header} 

@@ -5,6 +5,9 @@
 #include <iostream>
 
 #include "resource_manager.hpp"
+#include "texture.hpp"
+
+using namespace bet;
 
 Sprite::Sprite(const std::string file_name, const bet::vec2 &position,
                const bet::vec2 &size)
@@ -27,14 +30,6 @@ Sprite::~Sprite() {}
 
 Sprite *Sprite::Create(const std::string file_name, const bet::Rect rect) {
   return new Sprite(file_name, rect.origin, rect.size);
-}
-
-void Sprite::LoadTexture() {
-  ResourceManager::CreateTexture2D(file_name_, false);
-}
-
-Texture2D Sprite::GetTexture() const {
-  return ResourceManager::GetTexture2D(file_name_);
 }
 
 void Sprite::SetPosition(const bet::vec2 &position) { position_ = position; }

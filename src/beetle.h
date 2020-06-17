@@ -1,4 +1,4 @@
-#include "window.hpp"
-#include "scene.hpp"
-#include "vec.hpp"
-#include "rect.hpp"
+#include "Scene/scene.hpp"
+#include "Utility/rect.hpp"
+#include "Utility/vec.hpp"
+#include "window/window.hpp"

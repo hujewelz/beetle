@@ -11,7 +11,7 @@ class SpriteRenderer {
  public:
   SpriteRenderer(Shader &shader);
   ~SpriteRenderer();
-  void Render(Sprite &sprite);
+  void Render(bet::Sprite &sprite);
 
  private:
   Shader shader_;

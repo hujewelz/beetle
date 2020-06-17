@@ -5,6 +5,8 @@
 #include "resource_manager.hpp"
 #include "texture.hpp"
 
+using namespace bet;
+
 static Window *window = nullptr;
 
 Window *Window::Get() {

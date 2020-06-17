@@ -3,18 +3,15 @@
 
 #include <string>
 
-#include "texture.hpp"
 #include "vec.hpp"
+
+namespace bet {
 
 class Sprite {
  public:
   ~Sprite();
 
   static Sprite *Create(const std::string file_name, const bet::Rect rect);
-
-  Texture2D GetTexture() const;
-
-  void LoadTexture();
 
   const std::string &GetFileName() const { return file_name_; }
   const bet::vec2 &GetPosition() const { return position_; }
@@ -33,6 +30,7 @@ class Sprite {
   Sprite();
   Sprite(const std::string file_name, const bet::vec2 &position,
          const bet::vec2 &size);
+
   std::string file_name_;
   bet::vec2 position_;
   bet::vec2 size_;
@@ -40,5 +38,7 @@ class Sprite {
   float scale_;
   float rotate_;
 };
+
+}  // namespace bet
 
 #endif

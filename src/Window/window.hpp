@@ -6,6 +6,7 @@
 
 #include "event.hpp"
 #include "scene.hpp"
+namespace bet {
 
 class Window {
  public:
@@ -42,4 +43,5 @@ class Window {
   std::vector<EventHandler> eventHandlers_;
 };
 
+}  // namespace bet
 #endif

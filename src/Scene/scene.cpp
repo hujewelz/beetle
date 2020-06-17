@@ -10,6 +10,8 @@
 #include "resource_manager.hpp"
 #include "sprite_renderer.hpp"
 
+using namespace bet;
+
 static SpriteRenderer *renderer = nullptr;
 
 Scene::Scene() {}
@@ -36,7 +38,7 @@ void Scene::Init() {
   renderer = new SpriteRenderer(shader);
 
   for (Sprite *sprite : children_) {
-    sprite->LoadTexture();
+    ResourceManager::CreateTexture2D(sprite->GetFileName(), false);
   }
 }
 
