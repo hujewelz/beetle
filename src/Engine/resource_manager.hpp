@@ -19,7 +19,7 @@ class ResourceManager {
   static Shader GetShader(const std::string name);
 
   // create a texture from file
-  static Texture2D CreateTexture2D(const std::string &file, bool alpha);
+  static Texture2D CreateTexture2D(const std::string &file);
   // retrieves a stored texture
   static Texture2D GetTexture2D(const std::string &file);
 
@@ -33,7 +33,7 @@ class ResourceManager {
   static std::map<std::string, Texture2D> textures_;
 
   static const std::string GetFileName(const std::string &file);
-  static Texture2D loadTextureFromFile(const std::string &file, bool alpha);
+  static Texture2D loadTextureFromFile(const std::string &file);
 };
 
 #endif

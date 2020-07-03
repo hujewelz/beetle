@@ -26,6 +26,9 @@ class Texture2D {
   // return filering mode when texture pixels > screen pixels
   unsigned int GetFilterMax() const { return filter_max_; }
 
+  int GetWidth() const { return width_; }
+  int GetHeight() const { return height_; }
+
   // set the format of texture object
   void SetInternalFormat(unsigned int tex_format);
   // set the format of loaded image

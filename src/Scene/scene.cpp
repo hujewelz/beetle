@@ -38,7 +38,7 @@ void Scene::Init() {
   renderer = new SpriteRenderer(shader);
 
   for (Sprite *sprite : children_) {
-    ResourceManager::CreateTexture2D(sprite->GetFileName(), false);
+    ResourceManager::CreateTexture2D(sprite->GetFileName());
   }
 }
 

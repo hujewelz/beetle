@@ -12,7 +12,7 @@ std::map<std::string, Texture2D> ResourceManager::textures_;
 Shader ResourceManager::CreateShader(const std::string &vShaderPath,
                                      const std::string &fShaderPath,
                                      std::string name) {
-  std::cout << "CreateShader" << std::endl;
+  // std::cout << "CreateShader" << std::endl;
   // std::map<std::string, Shader>::iterator iter = shaders_.find(name);
   // if (iter != shaders_.end())
   // {
@@ -30,15 +30,14 @@ Shader ResourceManager::GetShader(const std::string name) {
   return shaders_[name];
 }
 
-Texture2D ResourceManager::CreateTexture2D(const std::string &file,
-                                           bool alpha) {
+Texture2D ResourceManager::CreateTexture2D(const std::string &file) {
   const std::string name = GetFileName(file);
   // load texture from cache first.
   if (textures_.count(name)) {
     // std::cout << "Create texture: " << textures_[name].GetID() << std::endl;
     return textures_[name];
   }
-  textures_[name] = loadTextureFromFile(file, alpha);
+  textures_[name] = loadTextureFromFile(file);
   return textures_[name];
 }
 
@@ -63,13 +62,8 @@ const std::string ResourceManager::GetFileName(const std::string &file) {
   return std::to_string(hash_str(file));
 }
 
-Texture2D ResourceManager::loadTextureFromFile(const std::string &filename,
-                                               bool alpha) {
+Texture2D ResourceManager::loadTextureFromFile(const std::string &filename) {
   Texture2D texture;
-  if (alpha) {
-    texture.SetInternalFormat(GL_RGBA);
-    texture.SetImageFormat(GL_RGBA);
-  }
 
   // load image
   int width, height, nrChanels;
@@ -77,8 +71,14 @@ Texture2D ResourceManager::loadTextureFromFile(const std::string &filename,
       stbi_load(filename.c_str(), &width, &height, &nrChanels, 0);
   // std::cout << "Load texture from file: " << texture.GetID() << std::endl;
   if (data) {
-    std::cout << "Image width: " << width << ", height: " << height
-              << std::endl;
+    // std::cout << "Image width: " << width << ", height: " << height
+    // << std::endl;
+    std::cout << "nr chanels: " << nrChanels << std::endl;
+    if (nrChanels > 3) {
+      texture.SetInternalFormat(GL_RGBA);
+      texture.SetImageFormat(GL_RGBA);
+    }
+
     texture.Generate(width, height, data);
   } else {
     std::cout << "Load image failed" << std::endl;
