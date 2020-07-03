@@ -12,6 +12,7 @@ class Sprite {
   ~Sprite();
 
   static Sprite *Create(const std::string file_name, const bet::Rect rect);
+  static Sprite *Create(const std::string file_name);
 
   const std::string &GetFileName() const { return file_name_; }
   const bet::vec2 &GetPosition() const { return position_; }

@@ -32,6 +32,10 @@ Sprite *Sprite::Create(const std::string file_name, const bet::Rect rect) {
   return new Sprite(file_name, rect.origin, rect.size);
 }
 
+Sprite *Sprite::Create(const std::string file_name) {
+  return new Sprite(file_name, vec2(0.0f, 0.0f), vec2(0.0f, 0.0f));
+}
+
 void Sprite::SetPosition(const bet::vec2 &position) { position_ = position; }
 
 void Sprite::SetSize(const bet::vec2 &size) { size_ = size; }

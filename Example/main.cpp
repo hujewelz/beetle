@@ -5,8 +5,8 @@
 #include <window.hpp>
 
 int main(int argc, char *arge[]) {
-  auto sprite = bet::Sprite::Create("./Resources/hero-right.png",
-                                    bet::Rect(200.0f, 200.0f, 24.0f, 32.0f));
+  auto sprite = bet::Sprite::Create("./Resources/hero-right.png");
+  sprite->SetPosition(bet::vec2(40.0f, 400.0f));
 
   auto sprite2 = bet::Sprite::Create("./Resources/hero-left.png",
                                      bet::Rect(400.0f, 200.0f, 24.0f, 32.0f));
@@ -18,7 +18,7 @@ int main(int argc, char *arge[]) {
 
   window->AddEventHandler(KEY_A, EVENT_STATE_PRESS, [sprite](Event event) {
     bet::vec2 p = sprite->GetPosition();
-    sprite->SetPosition(p + bet::vec2(1.0f, 1.0f));
+    sprite->SetPosition(p + bet::vec2(1.0f, 0.0f));
   });
   window->RunScene(scene);
 

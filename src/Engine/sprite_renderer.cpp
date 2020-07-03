@@ -29,6 +29,12 @@ void SpriteRenderer::Render(Sprite &sprite) {
   glGetIntegerv(GL_VIEWPORT, viewport);
 
   auto w = bet::Window::Get();
+  Texture2D texture = ResourceManager::GetTexture2D(sprite.GetFileName());
+  if (sprite.GetSize().x == 0 && sprite.GetSize().y == 0) {
+    sprite.SetSize(vec2(static_cast<float>(texture.GetWidth()),
+                        static_cast<float>(texture.GetHeight())));
+  }
+
   int sprite_width = sprite.GetSize().x * w->GetWidth() / viewport[2];
   int sprite_height = sprite.GetSize().y * w->GetHeight() / viewport[3];
 

@@ -73,7 +73,7 @@ Texture2D ResourceManager::loadTextureFromFile(const std::string &filename) {
   if (data) {
     // std::cout << "Image width: " << width << ", height: " << height
     // << std::endl;
-    std::cout << "nr chanels: " << nrChanels << std::endl;
+    // std::cout << "nr chanels: " << nrChanels << std::endl;
     if (nrChanels > 3) {
       texture.SetInternalFormat(GL_RGBA);
       texture.SetImageFormat(GL_RGBA);
