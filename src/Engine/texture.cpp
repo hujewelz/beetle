@@ -8,7 +8,8 @@ Texture2D::Texture2D()
       wrap_s_(GL_REPEAT),
       wrap_t_(GL_REPEAT),
       filter_min_(GL_LINEAR),
-      filter_max_(GL_LINEAR) {
+      filter_max_(GL_LINEAR),
+      hasAlpha_(false) {
   glGenTextures(1, &ID_);
 }
 
@@ -27,6 +28,8 @@ void Texture2D::Generate(int width, int height, const unsigned char *data) {
   // unbind texture
   glBindTexture(GL_TEXTURE_2D, 0);
 }
+
+void Texture2D::SetAlpha(bool isAlpha) { hasAlpha_ = isAlpha; }
 
 void Texture2D::Bind() const { glBindTexture(GL_TEXTURE_2D, ID_); }
 

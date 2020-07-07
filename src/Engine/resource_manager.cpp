@@ -77,6 +77,7 @@ Texture2D ResourceManager::loadTextureFromFile(const std::string &filename) {
     if (nrChanels > 3) {
       texture.SetInternalFormat(GL_RGBA);
       texture.SetImageFormat(GL_RGBA);
+      texture.SetAlpha(true);
     }
 
     texture.Generate(width, height, data);

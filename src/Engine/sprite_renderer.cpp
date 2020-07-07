@@ -49,7 +49,12 @@ void SpriteRenderer::Render(Sprite &sprite) {
   shader_.SetMatrix4("model", model);
 
   glActiveTexture(GL_TEXTURE0);
-  ResourceManager::GetTexture2D(sprite.GetFileName()).Bind();
+  texture.Bind();
+  if (texture.HasAlpha()) {
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+  }
+
   glBindVertexArray(VAO_);
   glDrawArrays(GL_TRIANGLES, 0, 6);
   glBindVertexArray(0);

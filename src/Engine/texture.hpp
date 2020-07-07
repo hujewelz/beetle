@@ -29,6 +29,8 @@ class Texture2D {
   int GetWidth() const { return width_; }
   int GetHeight() const { return height_; }
 
+  bool HasAlpha() const { return hasAlpha_; }
+
   // set the format of texture object
   void SetInternalFormat(unsigned int tex_format);
   // set the format of loaded image
@@ -41,6 +43,8 @@ class Texture2D {
   void SetFilterMin(unsigned int filter_min);
   // set filering mode when texture pixels > screen pixels
   void SetFilterMax(unsigned int filter_max);
+
+  void SetAlpha(bool isAlpha);
 
  private:
   GLuint ID_;
@@ -58,6 +62,8 @@ class Texture2D {
   unsigned int filter_min_;
   // filtering mode if texture pixels > screen pixels
   unsigned int filter_max_;
+
+  bool hasAlpha_;
 };
 
 #endif
